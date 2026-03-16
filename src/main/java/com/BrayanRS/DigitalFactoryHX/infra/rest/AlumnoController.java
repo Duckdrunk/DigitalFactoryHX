@@ -1,6 +1,13 @@
 package com.BrayanRS.DigitalFactoryHX.infra.rest;
 
 import com.BrayanRS.DigitalFactoryHX.application.port.in.SaveAlumnoUseCase;
+import com.BrayanRS.DigitalFactoryHX.domain.model.Alumno;
+
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import org.springframework.web.bind.annotation.*;
+
 import com.BrayanRS.DigitalFactoryHX.application.port.in.GetActiveAlumnosUseCase;
 
 /**
@@ -18,7 +25,24 @@ import com.BrayanRS.DigitalFactoryHX.application.port.in.GetActiveAlumnosUseCase
  * - Formatear la respuesta (responses) según requerimiento y enviar códigos
  * HTTP de estado correctos o lanzar excepciones reactivas.
  */
+@RestController
+@RequestMapping("/alumnos")
 public class AlumnoController {
-    // private final SaveAlumnoUseCase saveAlumnoUseCase;
-    // private final GetActiveAlumnosUseCase getActiveAlumnosUseCase;
+    private final SaveAlumnoUseCase saveAlumnoUseCase;
+    private final GetActiveAlumnosUseCase getActiveAlumnosUseCase;
+
+    public AlumnoController(SaveAlumnoUseCase saveAlumnoUseCase, GetActiveAlumnosUseCase getActiveAlumnosUseCase) {
+        this.saveAlumnoUseCase = saveAlumnoUseCase;
+        this.getActiveAlumnosUseCase = getActiveAlumnosUseCase;
+    }
+
+    @PostMapping
+    public Mono<Void> save(@RequestBody Alumno alumno) {
+        return saveAlumnoUseCase.save(alumno);
+    }
+
+    @GetMapping
+    public Flux<Alumno> getActiveAlumnos() {
+        return getActiveAlumnosUseCase.getActiveAlumnos();
+    }
 }

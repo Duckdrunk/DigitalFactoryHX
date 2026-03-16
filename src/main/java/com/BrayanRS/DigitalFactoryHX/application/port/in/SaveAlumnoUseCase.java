@@ -1,5 +1,8 @@
 package com.BrayanRS.DigitalFactoryHX.application.port.in;
 
+import com.BrayanRS.DigitalFactoryHX.domain.model.Alumno;
+import reactor.core.publisher.Mono;
+
 /**
  * Puerto de Entrada (Input Port) para el Caso de Uso de Guardar Alumno.
  * 
@@ -15,5 +18,5 @@ package com.BrayanRS.DigitalFactoryHX.application.port.in;
  * persistencia.
  */
 public interface SaveAlumnoUseCase {
-    // Mono<Void> save(Alumno alumno);
+    Mono<Void> save(Alumno alumno);
 }

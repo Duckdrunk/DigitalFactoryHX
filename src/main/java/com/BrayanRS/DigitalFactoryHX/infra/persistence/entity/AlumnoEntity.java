@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table("alumnos")
+@Builder
 public class AlumnoEntity implements Persistable<Integer> {
     @Id
     private Integer id;

@@ -1,5 +1,8 @@
 package com.BrayanRS.DigitalFactoryHX.application.port.in;
 
+import com.BrayanRS.DigitalFactoryHX.domain.model.Alumno;
+import reactor.core.publisher.Flux;
+
 /**
  * Puerto de Entrada (Input Port) para el Caso de Uso de Obtener Alumnos
  * Activos.
@@ -11,5 +14,5 @@ package com.BrayanRS.DigitalFactoryHX.application.port.in;
  * recuperación de datos.
  */
 public interface GetActiveAlumnosUseCase {
-    // Flux<Alumno> getActiveAlumnos();
+    Flux<Alumno> getActiveAlumnos();
 }
