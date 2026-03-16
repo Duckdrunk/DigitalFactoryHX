@@ -24,7 +24,6 @@ public class AlumnoPersistenceMapper {
                 .apellido(domain.getApellido())
                 .estado(domain.getEstado())
                 .edad(domain.getEdad())
-                .isNew(true)
                 .build();
     }
 }

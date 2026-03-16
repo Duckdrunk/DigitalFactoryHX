@@ -5,6 +5,7 @@ import com.BrayanRS.DigitalFactoryHX.domain.model.Alumno;
 
 import com.BrayanRS.DigitalFactoryHX.infra.rest.dto.AlumnoRequest;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -24,6 +25,7 @@ public class AlumnoController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Mono<Void> save(@Valid @RequestBody AlumnoRequest request) {
         return saveAlumnoUseCase.save(request.toDomain());
     }

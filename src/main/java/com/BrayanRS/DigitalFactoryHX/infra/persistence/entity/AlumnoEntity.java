@@ -1,6 +1,5 @@
 package com.BrayanRS.DigitalFactoryHX.infra.persistence.entity;
 
-import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -12,26 +11,32 @@ import com.BrayanRS.DigitalFactoryHX.domain.model.Estado;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Table("alumnos")
+@AllArgsConstructor
 @Builder
 public class AlumnoEntity implements Persistable<Integer> {
     @Id
     private Integer id;
-    @NotBlank
     private String nombre;
-    @NotBlank
     private String apellido;
-    @NotNull
     private Estado estado;
-    @Min(0)
     private Integer edad;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 
     @Transient
+    @Builder.Default
     private boolean isNew = true;
+
+    public AlumnoEntity(Integer id, String nombre, String apellido, Estado estado, Integer edad){
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.estado = estado;
+        this.edad = edad;
+        this.createdDate = LocalDateTime.now();
+    }
 
     @Override
     public Integer getId() {
@@ -43,11 +48,4 @@ public class AlumnoEntity implements Persistable<Integer> {
         return isNew;
     }
 
-    public void setAsNew() {
-        this.isNew = true;
-    }
-
-    public void setAsNotNew() {
-        this.isNew = false;
-    }
 }
