@@ -2,19 +2,18 @@ package com.BrayanRS.DigitalFactoryHX.infra.rest.dto;
 
 import com.BrayanRS.DigitalFactoryHX.domain.model.Alumno;
 import com.BrayanRS.DigitalFactoryHX.domain.model.Estado;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 public record AlumnoRequest(
     @NotNull(message = "El ID es requerido")
     Integer id,
 
     @NotBlank(message = "El nombre es requerido")
+    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$", message = "El nombre solo puede contener letras")
     String nombre,
 
     @NotBlank(message = "El apellido es requerido")
+    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$", message = "El apellido solo puede contener letras")
     String apellido,
 
     @NotNull(message = "El estado debe ser ACTIVO o INACTIVO")
