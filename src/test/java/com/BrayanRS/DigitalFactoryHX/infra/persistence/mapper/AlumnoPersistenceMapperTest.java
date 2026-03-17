@@ -1,4 +1,4 @@
-package com.BrayanRS.DigitalFactoryHX.infra.mapper;
+package com.BrayanRS.DigitalFactoryHX.infra.persistence.mapper;
 
 import com.BrayanRS.DigitalFactoryHX.domain.model.Alumno;
 import com.BrayanRS.DigitalFactoryHX.domain.model.Estado;

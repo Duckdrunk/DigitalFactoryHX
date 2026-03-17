@@ -1,9 +1,10 @@
 CREATE TABLE IF NOT EXISTS alumnos (
-    id SERIAL PRIMARY KEY,
-    nombre VARCHAR(255),
-    apellido VARCHAR(255),
-    estado VARCHAR(50),
-    edad INT,
-    created_date TIMESTAMP,
-    updated_date TIMESTAMP
+    id INTEGER NOT NULL,
+    nombre VARCHAR(255) NOT NULL,
+    apellido VARCHAR(255) NOT NULL,
+    estado VARCHAR(8) NOT NULL CHECK (estado IN ('ACTIVO', 'INACTIVO')),
+    edad INT NOT NULL,
+    created_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    updated_date TIMESTAMP WITHOUT TIME ZONE,
+    CONSTRAINT pk_alumnos PRIMARY KEY (id)
 );

@@ -22,6 +22,7 @@ public record AlumnoRequest(
 
     @Min(value = 0, message = "La edad no puede ser negativa")
     @Max(value = 120, message = "La edad debe ser un valor válido")
+    @NotNull(message = "Debe ingresar una edad")
     Integer edad
 ) {
     public Alumno toDomain() {

@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> handleAlreadyExists(AlumnoAlreadyExistsException ex) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
-        body.put("status", HttpStatus.BAD_REQUEST.value());
+        body.put("status", HttpStatus.CONFLICT.value());
         body.put("error", "Conflicto de Datos");
         body.put("mensaje", ex.getMessage());
 
@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> handleGeneral(Exception ex) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
-        body.put("status", HttpStatus.BAD_REQUEST.value());
+        body.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         body.put("error", "Error Interno");
         body.put("mensaje", "Ocurrió un error inesperado");
 
