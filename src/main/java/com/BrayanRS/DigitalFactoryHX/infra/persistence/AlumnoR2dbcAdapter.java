@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("db")
+@Profile("docker")
 public class AlumnoR2dbcAdapter implements AlumnoRepositoryPort {
 
     private final AlumnoR2dbcRepository repository;
@@ -26,7 +26,7 @@ public class AlumnoR2dbcAdapter implements AlumnoRepositoryPort {
     @Override
     public Mono<Void> save(Alumno alumno) {
         AlumnoEntity entity = AlumnoPersistenceMapper
-                .toEntity(alumno);
+                .toEntityForCreate(alumno);
         return repository.save(entity).then();
     }
 

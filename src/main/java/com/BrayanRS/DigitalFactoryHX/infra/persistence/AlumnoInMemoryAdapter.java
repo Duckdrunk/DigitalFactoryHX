@@ -12,24 +12,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-/**
- * Adaptador de Persistencia en Memoria (Driven/Secondary Adapter).
- * 
- * Es parte de la capa de Infraestructura que implementa el Puerto de Salida
- * (Output Port)
- * para la persistencia de datos solicitada en el reto ("persistencia en memoria
- * usando
- * colección Java o BD en memoria").
- * 
- * Responsabilidad:
- * - Implementar los métodos de la interfaz `AlumnoRepositoryPort`
- * - Encapsular el detalle técnico de si se usa un `ConcurrentHashMap` o `List`
- * en memoria.
- * - Mapear Entities/DTOs internos del adaptador y traducirlos al dominio si
- * fuera estrictamente
- * necesario, o en este caso básico usar directamente la entidad de la capa de
- * modelo.
- */
 @Component
 @Profile("memoria")
 public class AlumnoInMemoryAdapter implements AlumnoRepositoryPort {

@@ -26,17 +26,7 @@ public class AlumnoEntity implements Persistable<Integer> {
     private LocalDateTime updatedDate;
 
     @Transient
-    @Builder.Default
-    private boolean isNew = true;
-
-    public AlumnoEntity(Integer id, String nombre, String apellido, Estado estado, Integer edad){
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.estado = estado;
-        this.edad = edad;
-        this.createdDate = LocalDateTime.now();
-    }
+    private boolean isNew;
 
     @Override
     public Integer getId() {
