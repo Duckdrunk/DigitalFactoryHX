@@ -25,11 +25,8 @@ public class AlumnoService implements SaveAlumnoUseCase, GetActiveAlumnosUseCase
     @Override
     public Mono<Void> save(Alumno alumno) {
         return repositoryPort.existsById(alumno.getId())
-                .flatMap(exists -> {
-                    if (exists) {
-                        return Mono.error(new AlumnoAlreadyExistsException(alumno.getId()));
-                    }
-                    return repositoryPort.save(alumno);
-                });
+                .flatMap(alreadyExists -> alreadyExists
+                        ? Mono.error(new AlumnoAlreadyExistsException(alumno.getId()))
+                        : repositoryPort.save(alumno));
     }
 }

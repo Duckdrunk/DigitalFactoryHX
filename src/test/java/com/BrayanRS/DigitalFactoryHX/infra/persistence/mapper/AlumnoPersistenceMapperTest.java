@@ -28,14 +28,14 @@ public class AlumnoPersistenceMapperTest {
     }
 
     @Test
-    void entityToDomain_ShouldMapAllFieldsCorrectly(){
+    void entityToDomain_ShouldMapAllFieldsCorrectly() {
         AlumnoEntity entity = AlumnoEntity.builder()
-                                .id(1)
-                                .nombre("Brayan")
-                                .apellido("RS")
-                                .estado(Estado.ACTIVO)
-                                .edad(25)
-                                .build();
+                .id(1)
+                .nombre("Brayan")
+                .apellido("RS")
+                .estado(Estado.ACTIVO)
+                .edad(25)
+                .build();
 
         Alumno domain = AlumnoPersistenceMapper.toDomain(entity);
 
@@ -44,12 +44,11 @@ public class AlumnoPersistenceMapperTest {
                 () -> assertEquals(entity.getNombre(), domain.getNombre(), "El nombre debe coincidir"),
                 () -> assertEquals(entity.getApellido(), domain.getApellido(), "El apellido debe coincidir"),
                 () -> assertEquals(entity.getEstado(), domain.getEstado(), "El estado debe coincidir"),
-                () -> assertEquals(entity.getEdad(), domain.getEdad(), "La edad debe coincidir")
-        );
+                () -> assertEquals(entity.getEdad(), domain.getEdad(), "La edad debe coincidir"));
     }
 
     @Test
-    void domainToEntity_ShouldMapAllFieldsCorrectly(){
+    void domainToEntity_ShouldMapAllFieldsCorrectly() {
         Alumno domain = new Alumno(1, "Brayan", "RS", Estado.ACTIVO, 25);
 
         AlumnoEntity entity = AlumnoPersistenceMapper.toEntityForCreate(domain);
@@ -61,8 +60,7 @@ public class AlumnoPersistenceMapperTest {
                 () -> assertEquals(entity.getEstado(), domain.getEstado(), "El estado debe coincidir"),
                 () -> assertEquals(entity.getEdad(), domain.getEdad(), "La edad debe coincidir"),
                 () -> assertTrue(entity.isNew(), "La entidad debe marcarse como nueva para R2DBC"),
-                () -> assertNotNull(entity.getCreatedDate(), "La fecha de creación debe generarse")
-        );
+                () -> assertNotNull(entity.getCreatedDate(), "La fecha de creación debe generarse"));
     }
 
     @Test
@@ -75,16 +73,15 @@ public class AlumnoPersistenceMapperTest {
     @Test
     @DisplayName("Debe manejar campos opcionales nulos")
     void toDomain_WhenOptionalFieldsAreNull_ShouldNotExplode() {
-        //new AlumnoEntity(1, "Brayan", "RS", Estado.ACTIVO, null)
         AlumnoEntity entity = AlumnoEntity.builder()
-                                .id(1)
-                                .nombre("Brayan")
-                                .apellido("RS")
-                                .estado(Estado.ACTIVO)
-                                .edad(null)
-                                .createdDate(LocalDateTime.now())
-                                .isNew(true)
-                                .build();
+                .id(1)
+                .nombre("Brayan")
+                .apellido("RS")
+                .estado(Estado.ACTIVO)
+                .edad(null)
+                .createdDate(LocalDateTime.now())
+                .isNew(true)
+                .build();
 
         Alumno domain = AlumnoPersistenceMapper.toDomain(entity);
 

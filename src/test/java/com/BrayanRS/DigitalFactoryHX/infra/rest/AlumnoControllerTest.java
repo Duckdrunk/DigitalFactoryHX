@@ -59,4 +59,42 @@ public class AlumnoControllerTest {
                 .exchange()
                 .expectStatus().isCreated();
     }
+
+    @Test
+    @DisplayName("Debe retornar 409 Conflict cuando el Alumno ya existe")
+    void save_WhenAlreadyExists_Returns409() {
+        AlumnoRequest conflictRequest = new AlumnoRequest(2, "Luis", "Gomez", Estado.ACTIVO, 21);
+
+        when(saveAlumnoUseCase.save(any()))
+                .thenReturn(Mono.error(new com.BrayanRS.DigitalFactoryHX.domain.exception.AlumnoAlreadyExistsException(2)));
+
+        webTestClient.post()
+                .uri("/api/alumnos")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(conflictRequest)
+                .exchange()
+                .expectStatus().isEqualTo(409)
+                .expectBody()
+                .jsonPath("$.error").isEqualTo("Conflicto de Datos")
+                .jsonPath("$.mensaje").isEqualTo("El Alumno con ID 2 ya existe en el sistema");
+    }
+
+    @Test
+    @DisplayName("Debe retornar 200 y una lista de alumnos activos")
+    void getActiveAlumnos_Returns200() {
+        com.BrayanRS.DigitalFactoryHX.domain.model.Alumno alumno1 = new com.BrayanRS.DigitalFactoryHX.domain.model.Alumno(1, "Ana", "Ruiz", Estado.ACTIVO, 22);
+
+        when(getActiveAlumnosUseCase.getActiveAlumnos())
+                .thenReturn(reactor.core.publisher.Flux.just(alumno1));
+
+        webTestClient.get()
+                .uri("/api/alumnos")
+                .exchange()
+                .expectStatus().isOk()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("$[0].id").isEqualTo(1)
+                .jsonPath("$[0].nombre").isEqualTo("Ana")
+                .jsonPath("$[0].estado").isEqualTo("ACTIVO");
+    }
 }
